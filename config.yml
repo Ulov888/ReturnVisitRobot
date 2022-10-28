@@ -1,0 +1,31 @@
+language: zh
+
+pipeline:
+   - name: JiebaTokenizer
+   - name: CountVectorsFeaturizer
+   - name: DIETClassifier
+     epochs: 5
+     batch_size: 64
+     number_of_transformer_layers: 1
+     embedding_dimension: 30
+     learning_rate: 5e-3
+     transformer_size: 128
+     number_of_attention_heads: 2
+   - name: ResponseSelector
+     epochs: 50
+   - name: FallbackClassifier
+     threshold: 0.3
+     ambiguity_threshold: 0.1
+
+
+policies:
+  - name: policy.memoization.MemoizationPolicy
+  #- name: policy.fsm_policy.FsmPolicy
+  - name: TEDPolicy
+    max_history: 20
+    epochs: 15
+    batch_size: 50
+  - name: RulePolicy
+    core_fallback_threshold: 0.3
+    enable_fallback_prediction: True
+    core_fallback_action_name: "action_default_fallback"

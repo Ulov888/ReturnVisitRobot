@@ -1,0 +1,194 @@
+version: "3.1"
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+actions:
+  #- action_send_http_request
+  - action_default_fallback
+  - action_sys_repeat
+  - action_sys_goback
+  - action_session_start
+
+intents:
+  - intent_sys_welcome_tag
+  - intent_sys_repeat
+  - intent_sys_fill_slot_failure
+  - nlu_fallback
+  - intent_开始
+  - intent_繁忙
+  - intent_打错了
+  - intent_肯定
+  - intent_否定
+  - faq
+  - intent_抽取生日
+
+forms:
+  生日_form:
+    required_slots:
+    - slot_生日
+
+  满意建议_form:
+    required_slots:
+    - slot_满意建议
+
+  不满意建议_form:
+    required_slots:
+    - slot_不满意建议
+
+entities:
+  - entity_抽取生日
+
+slots:
+  slot_姓名:
+    type: any
+    initial_value: 张三
+    mappings:
+    - type: custom
+
+  slot_性别:
+    type: any
+    initial_value: 男
+    mappings:
+    - type: custom
+
+  slot_车品牌:
+    type: any
+    initial_value: 宝马
+    mappings:
+    - type: custom
+
+  slot_车型:
+    type: any
+    initial_value: suv
+    mappings:
+    - type: custom
+
+  slot_生日:
+    type: any
+    #initial_value: 19491001
+    mappings:
+    - type: from_entity
+      entity: entity_抽取生日
+      conditions:
+      - active_loop: 生日_form
+
+  slot_满意建议:
+    type: any
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: 满意建议_form
+
+  slot_不满意建议:
+    type: any
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: 不满意建议_form
+
+  slot_sys_unknown_num:
+    type: text
+    influence_conversation: false
+    initial_value: 3
+    mappings:
+    - type: custom
+
+
+responses:
+  utter_三次填槽失败:
+    - text: 您已经连续三次填槽失败，请重新开始会话
+  utter_sys_unknown1:
+    - text: "不是很明白，您重新描述一下呢~"
+      custom: { "module": "unknown", "commands": [ ] }
+  utter_sys_unknown2:
+    - text: "没听清刚才你说的是什么，您再说一下吧"
+      custom: { "module": "unknown", "commands": [ ] }
+  utter_sys_unknown3:
+    - text: "抱歉，不是很理解，正在为您转接人工，请稍等......"
+      custom: { "module": "unknown", "commands": [ "123456" ] }
+
+  utter_default_没听清:
+    - text: 啊(语气词衔接)…刚没有听清，麻烦您再说一次可以吗？
+
+  utter_faq/号码是哪里来的:
+    - text: "哦(语气词衔接)…,是这样的哈，家长您之前有报名过我们的课程，所以有您的电话，这次联系联系您，是我们课程做了全面升级想邀请宝贝免费体验。"
+
+  utter_faq/打断一下:
+  - text: 呃(语气词衔接)…,不好意思啊，您问的问题我不太了解，我记下来了，稍后我会让我们资深的学习伙伴来帮您详细介绍
+
+  utter_开场白:
+  - text: "您好，我是小天保险的客户回访专员。请问您是{slot_姓名}{slot_性别}吗"
+
+  utter_是否购车:
+  - text: "不好意思，请问您最近是否购买了一辆{slot_车品牌}的车子呢"
+
+  utter_打错电话:
+  - text: "不好意思，打扰您了，再见。"
+
+  utter_在忙:
+  - text: "不好意思,打扰您了，我们后续再与您联系，再见."
+
+  utter_回访邀请:
+  - text: "非常感谢您选择海峡保险，能耽误您两分钟事件给您做个简单的回访吗？"
+
+  utter_是否认识:
+  - text: "请问您认识{slot_姓名}{slot_性别}吗？"
+
+#  utter_录音提示:
+#  - text: "为了保障投保人的权益，本次通话可能会录音，这里先跟您核对下身份信息，请问您的生日是几月几号？"
+
+  utter_保人接听:
+  - text: "为了保障被保险人合法权益，便于后续提供增值服务我们需要对本保单进行回访，请问{slot_姓名}{slot_性别}方便来接听电话吗？"
+
+  utter_是否收到保单:
+  - text: "请问您的{slot_车型}车辆投保的保险单您是否收到？"
+
+  utter_是否本人签字:
+  - text: "请问投保时投保单时您本人签字的吗？"
+
+  utter_是否收到短信:
+  - text: "我司在您投保成功以后会以手机短信形式发送一份车险电子保单的链接给您，请您查看下是否收到短信呢？"
+
+  utter_是否收到纸质保单:
+  - text: "请问您是否受到过纸质保单呢？"
+
+  utter_发送保单:
+  - text: "我们会请有关部门尽快发送保单给您，请您注意查收"
+
+  utter_提醒下载:
+  - text: "短信链接7填有效，请您即时下载电子保单"
+
+  utter_是否解释:
+  - text: "请问销售人员是否向您解释过保险条款和免责内容？"
+
+  utter_是否满意:
+  - text: "请问当前您对我司提供的服务都满意吗？"
+
+#  utter_是否建议:
+#  - text: "请问您对我司的服务有其他意见或者建议吗？"
+
+#  utter_具体建议:
+#  - text: "抱歉影响您的体验了，麻烦您具体说说有哪些需要改进的地方，我们好向有关部门提出改进意见，提高我们的服务。"
+
+  utter_感谢接听:
+  - text: "感谢您的接听，希望下次能更好的为您服务。如果您后续有任何问题都可以联系我们xxx客服电话，也请您关注小天保险微信公众号，祝您生活愉快，再见！"
+
+  utter_是否签字后付款:
+  - text: "您手机扫码付款时是不是先在手机上签字后在付款呢？"
+
+  utter_是否签字:
+  - text: "车险投保单需要您本人签字，如果没有签过，我司近期会请您补签下投保单，请您留意。"
+
+  utter_ask_slot_生日:
+    - text: 为了保障投保人的权益，本次通话可能会录音，这里先跟您核对下身份信息，请问您的生日是几月几号？
+
+  utter_ask_slot_满意建议:
+    - text: 请问您对我司的服务有其他意见或者建议吗？
+
+  utter_ask_slot_不满意建议:
+    - text: 抱歉影响您的体验了，麻烦您具体说说有哪些需要改进的地方，我们好向有关部门提出改进意见，提高我们的服务。
+
+

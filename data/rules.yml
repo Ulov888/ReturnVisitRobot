@@ -1,0 +1,27 @@
+version: "3.0"
+
+rules:
+
+- rule: faq
+  steps:
+    - intent: faq
+    - action: utter_faq
+    - action: action_sys_goback
+
+- rule: global repeat
+  steps:
+    - intent: intent_sys_repeat
+    - action: action_sys_repeat
+
+
+- rule: global nlu fallback
+  steps:
+    - intent: nlu_fallback
+    - action: action_default_fallback
+
+- rule: 三次填槽失败
+  steps:
+    - intent: intent_sys_fill_slot_failure
+    - action: action_deactivate_loop
+    - action: utter_三次填槽失败
+

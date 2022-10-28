@@ -1,0 +1,286 @@
+version: "3.1"
+
+stories:
+
+- story: 开始-繁忙
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_繁忙
+  - action: utter_在忙
+
+- story: 开始-肯定-繁忙
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_肯定
+  - action: utter_回访邀请
+  - intent: intent_繁忙
+  - action: utter_在忙
+
+- story: 开始-否定-肯定-肯定-繁忙
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_否定
+  - action: utter_是否认识
+  - intent: intent_肯定
+  - action: utter_保人接听
+  - intent: intent_肯定
+  - action: utter_回访邀请
+  - intent: intent_繁忙
+  - action: utter_在忙
+
+- story: 开始-否定-肯定-肯定-否定
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_否定
+  - action: utter_是否认识
+  - intent: intent_肯定
+  - action: utter_保人接听
+  - intent: intent_肯定
+  - action: utter_回访邀请
+  - intent: intent_否定
+  - action: utter_在忙
+
+- story: 开始-打错了-繁忙
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_打错了
+  - action: utter_是否购车
+  - intent: intent_肯定
+  - action: utter_回访邀请
+  - or:
+      - intent: intent_繁忙
+      - intent: intent_否定
+  - action: utter_在忙
+
+- story: 开始-打错了-否定
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_打错了
+  - action: utter_是否购车
+  - intent: intent_否定
+  - action: utter_在忙
+
+- story: 开始-打错了
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_打错了
+  - action: utter_是否购车
+  - intent: intent_肯定
+  - action: utter_回访邀请
+  - intent: intent_肯定
+  - action: 生日_form
+  - active_loop: 生日_form
+  - active_loop: null
+  - action: utter_是否收到保单
+  - checkpoint: check_是否收到
+
+- story: 开始-否定-不认识
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_否定
+  - action: utter_是否认识
+  - intent: intent_否定
+  - action: utter_打错电话
+
+- story: 开始-否定-认识-否定
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_否定
+  - action: utter_是否认识
+  - intent: intent_肯定
+  - action: utter_保人接听
+  - intent: intent_否定
+  - action: utter_打错电话
+
+- story: 开始-否定-认识-肯定-check_回访邀请
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_否定
+  - action: utter_是否认识
+  - intent: intent_肯定
+  - action: utter_保人接听
+  - intent: intent_肯定
+  - action: utter_回访邀请
+  - intent: intent_肯定
+  - action: 生日_form
+  - active_loop: 生日_form
+  - active_loop: null
+  - action: utter_是否收到保单
+  - checkpoint: check_是否收到
+
+- story: 开始-肯定-check_回访邀请
+  steps:
+  - intent: intent_开始
+  - action: utter_开场白
+  - intent: intent_肯定
+  - action: utter_回访邀请
+  - intent: intent_肯定
+  - action: 生日_form
+  - active_loop: 生日_form
+  - active_loop: null
+  - action: utter_是否收到保单
+  - checkpoint: check_是否收到
+
+
+
+- story: check_是否收到-没收到-是否本人签字-肯定-check_是否解释
+  steps:
+  - checkpoint: check_是否收到
+  - intent: intent_否定
+  - action: utter_是否收到短信
+  - intent: intent_否定
+  - action: utter_是否收到纸质保单
+  - intent: intent_否定
+  - action: utter_发送保单
+  - action: utter_是否本人签字
+  - intent: intent_肯定
+  - action: utter_是否解释
+  - checkpoint: check_是否解释
+
+- story: check_是否收到-没收到-是否本人签字-肯定-check_是否解释2
+  steps:
+  - checkpoint: check_是否收到
+  - intent: intent_否定
+  - action: utter_是否收到短信
+  - intent: intent_否定
+  - action: utter_是否收到纸质保单
+  - intent: intent_否定
+  - action: utter_发送保单
+  - action: utter_是否本人签字
+  - intent: intent_否定
+  - action: utter_是否签字后付款
+  - intent: intent_肯定
+  - action: utter_是否解释
+  - checkpoint: check_是否解释
+
+- story: check_是否收到-没收到-是否本人签字-肯定-check_是否解释3
+  steps:
+  - checkpoint: check_是否收到
+  - intent: intent_否定
+  - action: utter_是否收到短信
+  - intent: intent_否定
+  - action: utter_是否收到纸质保单
+  - intent: intent_否定
+  - action: utter_发送保单
+  - action: utter_是否本人签字
+  - intent: intent_否定
+  - action: utter_是否签字后付款
+  - intent: intent_否定
+  - action: utter_是否签字
+  - intent: intent_肯定
+  - action: utter_是否解释
+  - checkpoint: check_是否解释
+
+- story: check_是否收到-收到-是否本人签字-肯定-check_是否解释
+  steps:
+  - checkpoint: check_是否收到
+  - intent: intent_肯定
+  - action: utter_是否本人签字
+  - intent: intent_肯定
+  - action: utter_是否解释
+  - checkpoint: check_是否解释
+
+- story: check_是否收到-没收到-收到-是否本人签字-肯定-check_是否解释
+  steps:
+  - checkpoint: check_是否收到
+  - intent: intent_否定
+  - action: utter_是否收到短信
+  - intent: intent_肯定
+  - action: utter_提醒下载
+  - action: utter_是否本人签字
+  - intent: intent_肯定
+  - action: utter_是否解释
+  - checkpoint: check_是否解释
+
+- story: check_是否收到-没收到-收到-是否本人签字-否定-肯定-check_是否解释
+  steps:
+  - checkpoint: check_是否收到
+  - intent: intent_否定
+  - action: utter_是否收到短信
+  - intent: intent_肯定
+  - action: utter_提醒下载
+  - action: utter_是否本人签字
+  - intent: intent_否定
+  - action: utter_是否签字后付款
+  - intent: intent_肯定
+  - action: utter_是否解释
+  - checkpoint: check_是否解释
+
+- story: check_是否收到-没收到-收到-是否本人签字-否定-否定-check_是否解释
+  steps:
+  - checkpoint: check_是否收到
+  - intent: intent_否定
+  - action: utter_是否收到短信
+  - intent: intent_肯定
+  - action: utter_提醒下载
+  - action: utter_是否本人签字
+  - intent: intent_否定
+  - action: utter_是否签字后付款
+  - intent: intent_否定
+  - action: utter_是否签字
+  - intent: intent_肯定
+  - action: utter_是否解释
+  - checkpoint: check_是否解释
+
+- story: check_是否收到-收到-是否本人签字-否定-肯定-check_是否解释
+  steps:
+  - checkpoint: check_是否收到
+  - intent: intent_肯定
+  - action: utter_是否本人签字
+  - intent: intent_否定
+  - action: utter_是否签字后付款
+  - intent: intent_肯定
+  - action: utter_是否解释
+  - checkpoint: check_是否解释
+
+- story: check_是否收到-收到-是否本人签字-否定-否定-check_是否解释
+  steps:
+  - checkpoint: check_是否收到
+  - intent: intent_肯定
+  - action: utter_是否本人签字
+  - intent: intent_否定
+  - action: utter_是否签字后付款
+  - intent: intent_否定
+  - action: utter_是否签字
+  - intent: intent_肯定
+  - action: utter_是否解释
+  - checkpoint: check_是否解释
+
+
+- story: check_是否解释-满意-信息收集
+  steps:
+  - checkpoint: check_是否解释
+  - or:
+      - intent: intent_肯定
+      - intent: intent_否定
+  - action: utter_是否满意
+  - intent: intent_肯定
+  - action: 满意建议_form
+  - active_loop: 满意建议_form
+  - active_loop: null
+  - action: utter_感谢接听
+
+- story: check_是否解释-不满意-信息收集
+  steps:
+  - checkpoint: check_是否解释
+  - or:
+      - intent: intent_肯定
+      - intent: intent_否定
+  - action: utter_是否满意
+  - intent: intent_否定
+  - action: 不满意建议_form
+  - active_loop: 不满意建议_form
+  - active_loop: null
+  - action: utter_感谢接听
+
+
