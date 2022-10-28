@@ -1,7 +1,9 @@
 # 真实场景下的保险回访机器人
 
 > 这是一个用于保险回访的外呼机器人，本项目中只保留核心的文本机器人的部分。
-> 该机器人可以做到的功能有：收集手机用户姓名、电话，引导用户完成回访任务，
+> 核心功能流程如下：
+![](https://github.com/Ulov888/ReturnVisitRobot/blob/main/process%20(1).png)
+
 
 本项目基于rasa重写了基于有限状态机的对话响应策略，对想要搭建文本机器人的朋友，应该有一定参考意义。
 
@@ -62,7 +64,6 @@ pip install -r requirement
 ```
 ### 使用示例
 
-![](https://github.com/dbader/readme-template/raw/master/header.png)
 
 ## 部署方法，可通过rest 方式调用会话响应
 ```
