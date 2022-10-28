@@ -62,7 +62,7 @@ tqdm~=4.64.0
 
 ### 安装
 ```
-pip install -r requirement
+pip install -r requirements.txt
 ```
 
 
