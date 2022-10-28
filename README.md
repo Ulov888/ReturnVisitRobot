@@ -1,10 +1,10 @@
-# Project Title 真实场景下的保险回访机器人
+# 真实场景下的保险回访机器人
 
 > 这是一个用于保险回访的外呼机器人，本项目中只保留核心的文本机器人的部分。
 
 本项目基于rasa重写了基于有限状态机的对话响应策略，对想要搭建文本机器人的朋友，应该有一定参考意义。
 
-## Getting Started 使用指南
+## 使用指南
 配置，可修改confg.yml文件中的pipeline，pipeline的具体配置方法可以参考Rasa官网https://rasa.com/docs/rasa/model-configuration
 
 下面给出两个自定义组件的配置示例
@@ -55,15 +55,15 @@ zlib~=1.2.12
 tqdm~=4.64.0
 ```
 
-### Installation 安装
+### 安装
 ```
 pip install -r requirement
 ```
-### Usage example 使用示例
+### 使用示例
 
 ![](https://github.com/dbader/readme-template/raw/master/header.png)
 
-## Deployment 部署方法，可通过rest 方式调用会话响应
+## 部署方法，可通过rest 方式调用会话响应
 ```
 rasa run -m xx.tar.gz(模型文件) -p 8787(端口号)
 ```
