@@ -47,8 +47,10 @@ rasa train
 ```
 运行
 ```
-rasa ru actions
-rasa shell
+#开启动作响应服务器，默认5055端口
+python main.py run actions
+#开启对话shell,如果使用pycharm注意勾选emulate terminal
+python main.py shell
 ```
 ### Prerequisites 项目环境依赖
 
