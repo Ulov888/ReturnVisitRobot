@@ -43,7 +43,7 @@ policies:
 
 训练
 ```
-rasa train
+python main.py train
 ```
 运行
 ```
