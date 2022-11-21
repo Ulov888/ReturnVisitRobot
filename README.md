@@ -51,6 +51,8 @@ python main.py train
 python main.py run actions
 #开启对话shell,如果使用pycharm注意勾选emulate terminal
 python main.py shell
+#第一句请输入内置意图：开始
+Your input:开始
 ```
 ### Prerequisites 项目环境依赖
 
