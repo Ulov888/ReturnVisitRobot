@@ -20,7 +20,7 @@ nlu:
   examples: |
     - 开始
     - 启动
-
+    - 开始1
 - intent: intent_肯定
   examples: |
     - 好
