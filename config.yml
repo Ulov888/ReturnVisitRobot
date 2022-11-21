@@ -4,7 +4,7 @@ pipeline:
    - name: JiebaTokenizer
    - name: CountVectorsFeaturizer
    - name: DIETClassifier
-     epochs: 5
+     epochs: 50
      batch_size: 64
      number_of_transformer_layers: 1
      embedding_dimension: 30
