@@ -7,44 +7,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class ActionRepeat(Action):
-    """在触发复述意图的情况下，对上一轮次机器人播报的话术进行重述"""
-
-    def name(self) -> Text:
-        return "action_sys_repeat"
-
-    async def run(self, dispatcher: CollectingDispatcher,
-                  tracker: Tracker,
-                  domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        events = tracker.current_state()['events']
-
-        utter_action_list = []
-        # 只提取当前轮次的对话bot事件即可
-        for index in range(len(events) - 3, 0, -1):
-            tmp_event = events[index]
-            if tmp_event['event'] == 'user_featurization':
-                break
-            else:
-                if tmp_event['event'] == 'bot':
-                    utter_action = tmp_event['metadata']['utter_action']
-                    if "utter_sys_unknown" in utter_action:
-                        continue
-                    utter_action_list.append(utter_action)
-
-        if len(utter_action_list) <= 0:
-            dispatcher.utter_message(response="utter_sys_unknown1")
-
-        else:
-            utter_action_list = list(reversed(utter_action_list))
-            for action_name in utter_action_list:
-                dispatcher.utter_message(response=action_name)
-
-        return [UserUtteranceReverted()]
-
 
 class ActionGoBack(Action):
-    """在多轮对话过程中，询问FAQ时，将话术拉回到多轮对话中"""
-
     def name(self) -> Text:
         return "action_sys_goback"
 
@@ -53,7 +17,6 @@ class ActionGoBack(Action):
                   domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         current_state = tracker.current_state()
 
-        #去除填槽情况
         active_loop = current_state['active_loop']
         if 'name' in active_loop:
             return []
